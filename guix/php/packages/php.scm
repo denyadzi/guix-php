@@ -21,7 +21,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
-(define-module (php)
+(define-module (php packages php)
   #:use-module (gnu packages)
   #:use-module (gnu packages algebra)
   #:use-module (gnu packages aspell)
@@ -60,15 +60,14 @@
 (define-public php
   (package
     (name "php")
-    (version "8.0.11")
+    (version "8.1.0RC5")
     (home-page "https://secure.php.net/")
     (source (origin
               (method url-fetch)
-              (uri (string-append home-page "distributions/"
-                                  "php-" version ".tar.xz"))
+              (uri "https://downloads.php.net/~patrickallaert/php-8.1.0RC5.tar.gz")
               (sha256
                (base32
-                "05ifal0kj1cwk0ijn1gj0pppnbdjy095b924aav1xcspmrjggrg3"))
+                "1jq5njv09kvx7s22nbayrylybq2qfasc1n234pmji7fxfsj7bybp"))
               (modules '((guix build utils)))
               (snippet
                '(with-directory-excursion "ext"
