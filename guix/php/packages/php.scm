@@ -60,14 +60,14 @@
 (define-public php
   (package
     (name "php")
-    (version "8.1.0RC5")
+    (version "8.0.12")
     (home-page "https://secure.php.net/")
     (source (origin
               (method url-fetch)
-              (uri "https://downloads.php.net/~patrickallaert/php-8.1.0RC5.tar.gz")
+              (uri (string-append home-page "/distributions/php-" version ".tar.xz"))
               (sha256
                (base32
-                "1jq5njv09kvx7s22nbayrylybq2qfasc1n234pmji7fxfsj7bybp"))
+                "02pakyc6msnp6d00qcc2i8ppi6rnhy7dj9ga4cr05lqg7dxh20d5"))
               (modules '((guix build utils)))
               (snippet
                '(with-directory-excursion "ext"
