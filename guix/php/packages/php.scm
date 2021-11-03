@@ -111,6 +111,7 @@
                ;; We could add "--with-snmp", but it requires netsnmp that
                ;; we don't have a package for. It is used to build the snmp
                ;; extension of php.
+	       "--disable-fileinfo"
                "--with-external-pcre"
                "--with-external-gd"
                "--with-iconv"
