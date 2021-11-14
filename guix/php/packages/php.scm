@@ -433,11 +433,12 @@ systems, web content management systems and web frameworks." )
 
 
 (define-public php-fpm
-  (inherit php)
-  (name "php-fpm")
-  (arguments (substitute-keyword-arguments
-              (package-arguments php)
-              ((#:configure-flags php-flags)
-               `(cons* "--enable-fpm"
-                       "--disable-cgi"
-                       ,php-flags)))))
+  (package
+   (inherit php)
+   (name "php-fpm")
+   (arguments (substitute-keyword-arguments
+               (package-arguments php)
+               ((#:configure-flags php-flags)
+                `(cons* "--enable-fpm"
+                        "--disable-cgi"
+                        ,php-flags))))))
