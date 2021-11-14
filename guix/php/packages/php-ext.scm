@@ -42,8 +42,8 @@
                     (install-file "modules/fileinfo.so" (string-append lib "/php-" ,(version-major+minor version) "/extensions"))
                     #t))))))
    (inputs
-    `(("php" ,php-bare)
-      ("pcre" ,pcre2)))
+    `(("php" ,php)
+      ("pcre" ,pcre2))) ;; needed by extension
    (native-inputs
     `(("autoconf" ,autoconf)))
    (synopsis "PHP fileinfo shared extension")
