@@ -64,14 +64,14 @@
 (define-public php
   (package
    (name "php")
-   (version "8.0.12")
+   (version "8.0.13")
    (home-page "https://secure.php.net/")
    (source (origin
             (method url-fetch)
             (uri (string-append home-page "/distributions/php-" version ".tar.xz"))
             (sha256
              (base32
-              "02pakyc6msnp6d00qcc2i8ppi6rnhy7dj9ga4cr05lqg7dxh20d5"))
+              "0lpda8ym2s6jsjwil5c8qg1a4jw52vz7s0jifr0ri49fxh2ni5yd"))
             (modules '((guix build utils)))
             (snippet
              '(with-directory-excursion "ext"
@@ -95,6 +95,11 @@
                                            (assoc-ref %build-inputs input))))))
         (list "--disable-fileinfo" ;; takes too much memory to build
               "--with-external-pcre"
+              "--with-openssl"
+              "--with-zlib"
+              "--with-zip"
+              (with "--with-zlib-dir" "zlib")
+              (with "--with-bz2" "bzip2")
               (with "--with-readline" "readline")
               (with "--with-sqlite3" "sqlite")))
       
@@ -324,8 +329,12 @@
    (inputs
     `(("libxml2" ,libxml2)
       ("readline" ,readline)
+      ("openssl" ,openssl)
       ("sqlite" ,sqlite)
-      ("pcre" ,pcre2)))
+      ("pcre" ,pcre2)
+      ("zlib" ,zlib)
+      ("libzip" ,libzip)
+      ("bzip2" ,bzip2)))
    (native-inputs
     `(("pkg-config" ,pkg-config)
       ("bison" ,bison)
