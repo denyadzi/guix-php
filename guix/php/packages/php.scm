@@ -458,7 +458,9 @@ systems, web content management systems and web frameworks." )
    (name "php-luya")
    (arguments (substitute-keyword-arguments
                (package-arguments php)
-               ((#:configure-flags php-flags)
+               ((#:tests? old)
+                #f
+                (#:configure-flags php-flags)
                 `(let-syntax ((with (syntax-rules ()
                                       ((_ option input)
                                        (string-append option "="
