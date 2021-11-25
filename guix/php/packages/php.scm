@@ -451,3 +451,35 @@ systems, web content management systems and web frameworks." )
                 `(cons* "--enable-fpm"
                         "--disable-cgi"
                         ,php-flags))))))
+
+(define-public php-luya
+  (package
+   (inherit php)
+   (name "php-luya")
+   (arguments (substitute-keyword-arguments
+               (package-arguments php)
+               ((#:configure-flags php-flags)
+                `(let-syntax ((with (syntax-rules ()
+                                      ((_ option input)
+                                       (string-append option "="
+                                                      (assoc-ref %build-inputs input))))))
+                   (list (with "--with-bz2" "bzip2")
+                         (with "--with-curl" "curl")
+                         (with "--with-pdo-sqlite" "sqlite")
+                         (with "--with-readline" "readline")
+                         (with "--with-zlib-dir" "zlib")
+                         "--disable-cgi"
+                         "--disable-fileinfo"
+                         "--with-external-pcre"
+                         "--with-external-gd"
+                         "--with-iconv"
+                         "--with-openssl"
+                         "--with-pdo-mysql"
+                         "--with-zip"
+                         "--with-zlib"
+                         "--enable-exif"
+                         "--enable-fpm"
+                         "--enable-gd"
+                         "--enable-intl"
+                         "--enable-mbstring"
+                         "--enable-phar")))))))
