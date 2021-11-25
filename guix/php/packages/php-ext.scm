@@ -155,14 +155,18 @@
    (description "PHP mysqlnd shared extension")
    (license (package-license php))))
 
-(define php-ext-pdomysql
+(define-public php-ext-pdomysql
   (package
    (inherit php)
    (name "php-ext-pdomysql")
    (arguments
     `(#:configure-flags
       (list (string-append "--with-php-config="
-                           (assoc-ref %build-inputs "php") "/bin/php-config"))
+                           (assoc-ref %build-inputs "php") "/bin/php-config")
+            "--with-pdo-mysql=mysqlnd"
+            (string-append "--with-zlib-dir=" (assoc-ref %build-inputs "zlib")))
+      #:make-flags
+      (list "CPPFLAGS=-I../.. -DHAVE_CONFIG_H") ;; to access ext/mysqlnd/*.h and got PDO_USE_MYSQLND declared
       #:tests? #f
       #:phases
       (modify-phases
@@ -178,10 +182,11 @@
        (replace 'install 
                 (lambda* (#:key outputs #:allow-other-keys)
                   (let ((lib (string-append (assoc-ref outputs "out") "/lib")))
-                    (install-file "modules/pdomysql.so" (string-append lib "/php-" ,(version-major+minor (package-version php)) "/extensions"))
+                    (install-file "modules/pdo_mysql.so" (string-append lib "/php-" ,(version-major+minor (package-version php)) "/extensions"))
                     #t))))))
    (inputs
-    `(("php" ,php))) 
+    `(("php" ,php)
+      ("zlib" ,zlib))) 
    (native-inputs
     `(("autoconf" ,autoconf)
       ("pkg-config" ,pkg-config)))
