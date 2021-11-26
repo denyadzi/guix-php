@@ -459,8 +459,8 @@ systems, web content management systems and web frameworks." )
    (arguments (substitute-keyword-arguments
                (package-arguments php)
                ((#:tests? old)
-                #f
-                (#:configure-flags php-flags)
+                #f)
+               ((#:configure-flags php-flags)
                 `(let-syntax ((with (syntax-rules ()
                                       ((_ option input)
                                        (string-append option "="
